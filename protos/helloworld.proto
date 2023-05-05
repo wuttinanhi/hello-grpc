@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package helloworld;
 
+option go_package = "hello-grpc/helloworld";
+
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
@@ -19,3 +21,4 @@ message HelloRequest {
 message HelloReply {
   string message = 1;
 }
+

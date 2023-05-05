@@ -1,2 +1,5 @@
 
 *.pyc
+go/client/client
+go/server/server
+go/client/client~
