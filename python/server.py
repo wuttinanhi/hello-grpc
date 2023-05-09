@@ -6,12 +6,11 @@ import time
 from typing import Iterable
 
 import grpc
-import helloworld_pb2
-import helloworld_pb2_grpc
+
+from helloworld import helloworld_pb2, helloworld_pb2_grpc
 
 
 class Greeter(helloworld_pb2_grpc.GreeterServicer):
-
     def SayHello(
         self,
         request: helloworld_pb2.HelloRequest,
@@ -24,8 +23,9 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
         request: helloworld_pb2.HelloRequest,
         context: grpc.ServicerContext
     ) -> Iterable[helloworld_pb2.HelloReply]:
-        for i in range(10):
-            yield helloworld_pb2.HelloReply(message=f'Hello, {request.name}! #{i}')
+        print(f'got request: {request.name}')
+        for _ in range(10):
+            yield helloworld_pb2.HelloReply(message=f'Hello, {request.name}!')
             time.sleep(1)
 
 
@@ -33,7 +33,8 @@ def serve():
     port = '50051'
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    helloworld_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
+    helloworld_pb2_grpc.add_GreeterServicer_to_server(
+        Greeter(), server)
 
     server.add_insecure_port('[::]:' + port)
     server.start()

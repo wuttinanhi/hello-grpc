@@ -39,7 +39,8 @@ class GreeterServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def SayHelloStreamReply(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Sends greetings stream
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
